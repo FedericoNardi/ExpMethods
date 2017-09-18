@@ -38,7 +38,7 @@ temp = pulse.T;
 rp = max(temp);
 index = find(temp == rp);
 tp = pulse.t(index);
-rp = pulse.T(index);
+rp = pulse.T(index) - min(pulse.T(index));
 
 %% derivative expression rp = H(0) ((exp(eps/T) - 1)exp(-tp/T))
 % i want to find the root of
@@ -47,10 +47,10 @@ myfun = @(x,eps, rp, tp, H_0) (rp - H_0 * (exp(eps/x) - 1) * exp(- tp/x));  % pa
 eps = 20;
 H_0 = 7.943083;
 tp = pulse.t(index);
-rp = pulse.T(index) - Tm;
+rp = pulse.T(index) - min(pulse.T);
 fun = @(x) myfun(x,eps, rp, tp, H_0);    % function of x alone
 T_1_2 = fzero(fun,125)
-%% 
+%% plot
 x=0:1:300
 hold on
 plot(x,H_0 .* (exp(eps./x) - 1) .* exp(- tp./x));
