@@ -47,11 +47,11 @@ myfun = @(x,eps, rp, tp, H_0) (rp - H_0 * (exp(eps/x) - 1) * exp(- tp/x));  % pa
 eps = 20;
 H_0 = 7.943083;
 tp = pulse.t(index);
-rp = pulse.T(index);
+rp = pulse.T(index) - Tm;
 fun = @(x) myfun(x,eps, rp, tp, H_0);    % function of x alone
-x = fzero(fun,3.2)
+T_1_2 = fzero(fun,125)
 %% 
-x=0:1:200
+x=0:1:300
 hold on
 plot(x,H_0 .* (exp(eps./x) - 1) .* exp(- tp./x));
 plot([0 200],[rp rp])
