@@ -49,10 +49,16 @@ H_0 = 7.943083;
 tp = pulse.t(index);
 rp = pulse.T(index) - min(pulse.T);
 fun = @(x) myfun(x,eps, rp, tp, H_0);    % function of x alone
-T_1_2 = fzero(fun,2.943)
-%% plot
-x=0:1:300
+T1 = fzero(fun,3);
+T2 = fzero(fun,125);
+% plot
+x=0:1:300;
 hold on
 plot(x,H_0 .* (exp(eps./x) - 1) .* exp(- tp./x));
-plot([0 200],[rp rp])
-
+plot([0 300],[rp rp])
+% Make a log
+disp(sprintf('\n-------- RESPONSE PARAMETERS --------'));
+disp(sprintf('H_0: %d',H0));
+disp(sprintf('T_1: %d',T1));
+disp(sprintf('T_2: %d',T2));
+disp(sprintf('-----------------------------------\n'));
