@@ -49,7 +49,7 @@ H_0 = 7.943083;
 tp = pulse.t(index);
 rp = pulse.T(index) - min(pulse.T);
 fun = @(x) myfun(x,eps, rp, tp, H_0);    % function of x alone
-T_1_2 = fzero(fun,125)
+T_1_2 = fzero(fun,2.943)
 %% plot
 x=0:1:300
 hold on
