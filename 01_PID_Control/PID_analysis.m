@@ -1,4 +1,11 @@
 %% PID Control
+%dati per modello
+T1_m=2.944;
+T2_m=125.010;
+H0_m= 7.943083;
+e = 2.718281828459046;
+eps_m=20;
+
 %% Temperature check
 % Import data
 %path(path,'C:\Users\Federico\Documents\GitHub\ExpMethods\01_PID_Control');
@@ -20,8 +27,14 @@ load('step.mat');
 % Plot
 plot(step.t,step.T,'Linestyle','none','Marker','.',...
     'color','r');
+hold on; 
 % Get H0 value
 H0 = step.T(end-10) - step.T(1);
+delta_e=1;
+modelstep=delta_e*H0*(ones(size(step.t))-T1/(T1-T2)*exp(-(step.t)./T1)+T2/(T1-T2)*exp(-(step.t)./T2)) + min(step.T);
+plot(step.t, modelstep,'Linestyle','none','Marker','.',...
+    'color','b');
+
 % Make a log
 disp(sprintf('\n-------- STEP EXCITATION --------'));
 disp(sprintf('H_0: %d',H0));
@@ -33,6 +46,14 @@ load('pulse.mat');
 % Plot
 plot(pulse.t,pulse.T,'Linestyle','none','Marker','.',...
     'color','r');
+hold on;
+delta_e=1;
+modelstep2=delta_e*H0_m*(ones(size(pulse.t(1,1:33)))-T1_m/(T1_m-T2_m)*exp(-pulse.t(1,1:33)./T1_m)+T2_m/(T1_m-T2_m)*exp(-pulse.t(1,1:33)./T2_m)) + min(pulse.T);
+modelpulse=delta_e*H0_m/(T1_m-T2_m)*(T1_m*(exp(eps_m/T1_m)-1)*exp(-pulse.t(1,34:1535)/T1_m)-T2_m*(exp(eps_m/T2_m)-1)*exp(-pulse.t(1,34:1535)/T2_m))+ min(pulse.T);
+plot(pulse.t(1,1:33), modelstep2,'Linestyle','none','Marker','.',...
+    'color','b');
+plot(pulse.t(1,34:1535), modelpulse,'Linestyle','none','Marker','.',...
+    'color','b');
 % Find maximum r(t) is the function
 temp = pulse.T;
 rp = max(temp);
@@ -45,20 +66,58 @@ rp = pulse.T(index) - min(pulse.T(index));
 myfun = @(x,eps, rp, tp, H_0) (rp - H_0 * (exp(eps/x) - 1) * exp(- tp/x));  % parameterized function
 % parameter
 eps = 20;
-H_0 = 7.943083;
+H0 = 7.943083;
 tp = pulse.t(index);
 rp = pulse.T(index) - min(pulse.T);
-fun = @(x) myfun(x,eps, rp, tp, H_0);    % function of x alone
-T1 = fzero(fun,3);
-T2 = fzero(fun,125);
-% plot
+fun = @(x) myfun(x,eps, rp, tp, H0);    % function of x alone
+T1 = fzero(fun,2.943);
+T2 = fzero(fun,120);
+%% plot
 x=0:1:300;
 hold on
-plot(x,H_0 .* (exp(eps./x) - 1) .* exp(- tp./x));
-plot([0 300],[rp rp])
-% Make a log
-disp(sprintf('\n-------- RESPONSE PARAMETERS --------'));
-disp(sprintf('H_0: %d',H0));
-disp(sprintf('T_1: %d',T1));
-disp(sprintf('T_2: %d',T2));
-disp(sprintf('-----------------------------------\n'));
+plot(x,H0 .* (exp(eps./x) - 1) .* exp(- tp./x));
+plot([0 200],[rp rp]);
+
+%% calculate P, I, k_p, k_i
+P=(1/3)*((T1+T2)^2)/(T1*T2)-1;
+I=(1/27)*((T1+T2)^3)/((T1*T2)^2);
+Kp=P/H0;
+Ki=I/H0;
+
+%% Temp_check
+%PID control T=25
+f2=figure();
+load('PI_25C.mat');
+p2=plot(cm(1,1:335),T(1,1:335),'linestyle', 'none', 'Marker','.',...
+    'color','r');
+
+%% 3 steps
+f1=figure();
+load('PI_3steps.mat');
+p1=plot(cm(1,1:1483),T(1,1:1483),'linestyle', 'none', 'Marker','.',...
+    'color','r');
+
+%% T expected 35, sample rate 30, task 10
+f1=figure();
+load('PI_35expect_samplerate30.mat');
+p1=plot(cm(1,1:28),T(1,1:28),'linestyle', 'none', 'Marker','.',...
+    'color','r');
+
+%% Kp=0
+f1=figure();
+load('I_35.mat');
+p1=plot(cm(1,1:1800),T(1,1:1800),'linestyle', 'none', 'Marker','.',...
+    'color','r');
+
+
+%% Ki=0
+f1=figure();
+load('P_35.mat');
+p1=plot(cm(1,1:1049),T(1,1:1049),'linestyle', 'none', 'Marker','.',...
+    'color','r');
+
+%% Kp=100
+f1=figure();
+load('PI_35_100kp.mat');
+p1=plot(cm(1,1:612),T(1,1:612),'linestyle', 'none', 'Marker','.',...
+    'color','r');
