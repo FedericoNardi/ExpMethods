@@ -115,8 +115,17 @@ Ki=I/H0;
 %PID control T=25
 f2=figure();
 load('PI_25C.mat');
+
 p2=plot(cm(1,1:335),T(1,1:335),'linestyle', 'none', 'Marker','.',...
     'color','r');
+xlim([0 200])
+set(gca,'FontSize',14);
+xlabel('Second [s]');
+ylabel('Temperature [K]');
+hTitle = title('PID control fixed temperature');
+set(hTitle,'FontSize',16);
+hold on;
+print('pid25', '-depsc');
 
 %% 3 steps
 f1=figure();
