@@ -132,28 +132,75 @@ f1=figure();
 load('PI_3steps.mat');
 p1=plot(cm(1,1:1483),T(1,1:1483),'linestyle', 'none', 'Marker','.',...
     'color','r');
+xlim([0 1000])
+set(gca,'FontSize',14);
+xlabel('Second [s]');
+ylabel('Temperature [K]');
+hTitle = title('PID control three temperaure');
+set(hTitle,'FontSize',16);
+hold on;
+print('pid3step', '-depsc');
 
 %% T expected 35, sample rate 30, task 10
 f1=figure();
 load('PI_35expect_samplerate30.mat');
+hold on;
 p1=plot(cm(1,1:28),T(1,1:28),'linestyle', 'none', 'Marker','.',...
     'color','r');
+plot([0 500],[308.15 308.15]);
+set(gca,'FontSize',14);
+xlabel('Second [s]');
+ylabel('Temperature [K]');
+hTitle = title('Long sampling interval');
+set(hTitle,'FontSize',16);
+hold on;
+print('long_sampling', '-depsc');
 
 %% Kp=0
 f1=figure();
 load('I_35.mat');
+hold on;
 p1=plot(cm(1,1:1800),T(1,1:1800),'linestyle', 'none', 'Marker','.',...
     'color','r');
+plot([0 1300],[308.15 308.15]);
+xlim([0 1230])
+set(gca,'FontSize',14);
+xlabel('Second [s]');
+ylabel('Temperature [K]');
+hTitle = title('I control');
+set(hTitle,'FontSize',16);
+hold on;
+print('I35', '-depsc');
 
 
 %% Ki=0
 f1=figure();
 load('P_35.mat');
+hold on;
 p1=plot(cm(1,1:1049),T(1,1:1049),'linestyle', 'none', 'Marker','.',...
     'color','r');
+xlim([0 670]);
+plot([0 670],[308.15 308.15]);
+set(gca,'FontSize',14);
+xlabel('Second [s]');
+ylabel('Temperature [K]');
+hTitle = title('P control');
+set(hTitle,'FontSize',16);
+hold on;
+print('P35', '-depsc');
 
 %% Kp=100
 f1=figure();
 load('PI_35_100kp.mat');
+hold on;
 p1=plot(cm(1,1:612),T(1,1:612),'linestyle', 'none', 'Marker','.',...
     'color','r');
+xlim([0 375]);
+plot([0 670],[308.15 308.15]);
+set(gca,'FontSize',14);
+xlabel('Second [s]');
+ylabel('Temperature [K]');
+hTitle = title('Wrong value of K_P');
+set(hTitle,'FontSize',16);
+hold on;
+print('P100', '-depsc');
