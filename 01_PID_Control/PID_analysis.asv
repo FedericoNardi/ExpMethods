@@ -252,17 +252,17 @@ p1=plot(cm(1,1:1049),T(1,1:1049),'linestyle', 'none', 'Marker','.',...
     'color','r');
 hold on
 plot([0 1250],[273.15+35 273.15+35]);
-plot([0 1250],[307.63271 307.63271])
+plot([0 1250],[])
 title('P control ($K_I = 0$)','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
 grid on
 xlim([0 700]);
+ll=legend(gca,'show','Data','$T=35^\circ C$');
+set(ll,'Interpreter','Latex','Location','southeast');
 xlim([0 670]);
 plot([0 670],[308.15 308.15]);
-ll=legend(gca,'show','Data','$T=35^\circ C$','$r_{model}(\infty)$');
-set(ll,'Interpreter','Latex','Location','southeast');
 set(gca,'FontSize',14);
 xlabel('Second [s]');
 ylabel('Temperature [K]');
