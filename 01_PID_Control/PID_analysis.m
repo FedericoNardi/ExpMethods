@@ -13,20 +13,20 @@ load('tempcheck.mat');
 % Plot
 plot(tcheck.t,tcheck.T,'Linestyle','none','Marker','.',...
     'color','r');
-<<<<<<< HEAD
+
 title('Temperature check','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
 grid on;
-=======
+
 set(gca, 'FontName', 'Times');
 set(gca,'FontSize',14);
 xlabel('Second [s]');
 ylabel('Temperature [K]');
 hTitle = title('Temperaure check');
 set(hTitle,'FontSize',16);
->>>>>>> 7c086604582801d4e816d17ce88f95e4385f1f9b
+
 % Calculate mean and std
 Tm = mean(tcheck.T);
 sigma_T = std(tcheck.T);
@@ -84,7 +84,6 @@ close all
 load('pulse.mat');
 % Plot
 plot(pulse.t,pulse.T,'Linestyle','none','Marker','.',...
-<<<<<<< HEAD
     'color','r');
 title('Pulse excitation','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
@@ -92,14 +91,12 @@ ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
 xlim([0 900]);
 grid on;
-=======
     'color','r');set(gca, 'FontName', 'Times');
 set(gca,'FontSize',14);
 xlabel('Second [s]');
 ylabel('Temperature [K]');
 hTitle = title('Pulse Excitation');
 set(hTitle,'FontSize',16);
->>>>>>> 7c086604582801d4e816d17ce88f95e4385f1f9b
 hold on;
 print('pulse', '-depsc');
 
@@ -149,7 +146,6 @@ load('PI_25C.mat');
 
 p2=plot(cm(1,1:335),T(1,1:335),'linestyle', 'none', 'Marker','.',...
     'color','r');
-<<<<<<< HEAD
 tit=title('PI Control - T$=25^\circ$C');
 set(tit,'Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
@@ -157,7 +153,6 @@ ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
 xlim([0 210]);
 grid on;
-=======
 xlim([0 200])
 set(gca,'FontSize',14);
 xlabel('Second [s]');
@@ -166,8 +161,6 @@ hTitle = title('PID control fixed temperature');
 set(hTitle,'FontSize',16);
 hold on;
 print('pid25', '-depsc');
-
->>>>>>> 7c086604582801d4e816d17ce88f95e4385f1f9b
 %% 3 steps
 f1=figure();
 load('PI_3steps.mat');
@@ -180,7 +173,6 @@ ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 xlim([0 1000]);
 set(gca,'TickLabelInterpreter','latex');
 grid on;
-=======
 xlim([0 1000])
 set(gca,'FontSize',14);
 xlabel('Second [s]');
@@ -286,13 +278,12 @@ grid on
 xlim([0 380]);
 ll=legend(gca,'show','Data','$T=35^\circ C$');
 set(ll,'Interpreter','Latex','Location','southeast');
-=======
 xlim([0 375]);
 plot([0 670],[308.15 308.15]);
 set(gca,'FontSize',14);
 xlabel('Second [s]');
 ylabel('Temperature [K]');
-hTitle = title('Wrong value of K_P');
+hTitle = title('Wrong value of K_P','interpreter','latex','fontsize',18);
 set(hTitle,'FontSize',16);
 hold on;
 print('P100', '-depsc');
