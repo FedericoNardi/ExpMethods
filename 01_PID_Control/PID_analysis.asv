@@ -283,7 +283,7 @@ plot([0 670],[308.15 308.15]);
 set(gca,'FontSize',14);
 xlabel('Second [s]');
 ylabel('Temperature [K]');
-hTitle = title('Wrong value of K_P','interpreter','latex','fontsize',18);
+hTitle = title('Wrong value of K_P',');
 set(hTitle,'FontSize',16);
 hold on;
 print('P100', '-depsc');
