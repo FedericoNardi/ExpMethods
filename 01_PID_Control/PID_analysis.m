@@ -1,11 +1,4 @@
 %% PID Control
-%dati per modello
-T1_m=2.944;
-T2_m=125.010;
-H0_m= 7.943083;
-e = 2.718281828459046;
-eps_m=20;
-
 %% Temperature check
 % Import data
 %path(path,'C:\Users\Federico\Documents\GitHub\ExpMethods\01_PID_Control');
@@ -43,6 +36,7 @@ figure();
 hold on;
 plot(step.t,step.T,'Linestyle','none','Marker','.',...
     'color','r');
+<<<<<<< HEAD
 title('Step excitation','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
@@ -73,6 +67,10 @@ delta_e=1;
 modelstep=delta_e*H0*(ones(size(step.t))-T1/(T1-T2)*exp(-(step.t)./T1)+T2/(T1-T2)*exp(-(step.t)./T2)) + min(step.T);
 plot(step.t, modelstep,'Linestyle','none','Marker','.',...
     'color','b');
+=======
+% Get H0 value
+H0 = step.T(end-10) - step.T(1);
+>>>>>>> parent of ab58af8... changes
 % Make a log
 disp(sprintf('\n-------- STEP EXCITATION --------'));
 disp(sprintf('H_0: %d',H0));
@@ -85,6 +83,7 @@ load('pulse.mat');
 % Plot
 plot(pulse.t,pulse.T,'Linestyle','none','Marker','.',...
     'color','r');
+<<<<<<< HEAD
 title('Pulse excitation','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
@@ -107,6 +106,8 @@ delta_e=1;
 %    'color','b');
 %plot(pulse.t(1,34:1535), modelpulse,'Linestyle','none','Marker','.',...
 %    'color','b');
+=======
+>>>>>>> parent of ab58af8... changes
 % Find maximum r(t) is the function
 temp = pulse.T;
 rp = max(temp);
@@ -120,6 +121,7 @@ dt=0.5*(pulse.t(index+1)-pulse.t(index))
 myfun = @(x,eps, rp, tp, H_0) (rp - H_0 * (exp(eps/x) - 1) * exp(- tp/x));  % parameterized function
 % parameter
 eps = 20;
+<<<<<<< HEAD
 H0 = 7.9471;
 tp = pulse.t(index);
 rp = pulse.T(index) - min(pulse.T);
@@ -288,3 +290,22 @@ set(hTitle,'FontSize',16);
 hold on;
 print('P100', '-depsc');
 
+=======
+H_0 = 7.943083;
+tp = pulse.t(index);
+rp = pulse.T(index) - min(pulse.T);
+fun = @(x) myfun(x,eps, rp, tp, H_0);    % function of x alone
+T1 = fzero(fun,3);
+T2 = fzero(fun,125);
+% plot
+x=0:1:300;
+hold on
+plot(x,H_0 .* (exp(eps./x) - 1) .* exp(- tp./x));
+plot([0 300],[rp rp])
+% Make a log
+disp(sprintf('\n-------- RESPONSE PARAMETERS --------'));
+disp(sprintf('H_0: %d',H0));
+disp(sprintf('T_1: %d',T1));
+disp(sprintf('T_2: %d',T2));
+disp(sprintf('-----------------------------------\n'));
+>>>>>>> parent of ab58af8... changes
