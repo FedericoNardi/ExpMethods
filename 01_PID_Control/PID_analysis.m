@@ -196,7 +196,6 @@ set(gca,'TickLabelInterpreter','latex');
 grid on;
 ll=legend(gca,'show','Data','$T = 308.15$K','location','northwest')
 set(ll,'Interpreter','Latex','Fontsize',10);
-plot([0 500],[308.15 308.15]);
 set(gca,'FontSize',14);
 hold on;
 %print('long_sampling', '-depsc');
