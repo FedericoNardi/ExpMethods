@@ -209,7 +209,7 @@ p1=plot(cm(1,1:1800),T(1,1:1800),'linestyle', 'none', 'Marker','.',...
     'color','r');
 hold on
 plot([0 1250],[273.15+35 273.15+35]);
-title('I control ($K_p = 0$)','Interpreter','LateX','Fontsize',18);
+title('I control ($K_p = 0 \, VK^{-1}$)','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
@@ -217,8 +217,6 @@ grid on
 xlim([0 1250])
 ll=legend(gca,'show','Data','$T=308.15$K');
 set(ll,'Interpreter','Latex');
-plot([0 1300],[308.15 308.15]);
-xlim([0 1230])
 set(gca,'FontSize',14);
 hold on;
 %print('I35', '-depsc');
@@ -232,7 +230,7 @@ p1=plot(cm(1,1:1049),T(1,1:1049),'linestyle', 'none', 'Marker','.',...
 hold on
 plot([0 1250],[273.15+35 273.15+35]);
 plot([0 1250],[307.63271 307.63271])
-title('P control ($K_I = 0$)','Interpreter','LateX','Fontsize',18);
+title('P control ($K_I = 0 \, VK^{-1}$)','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
@@ -253,7 +251,7 @@ p1=plot(cm(1,1:612),T(1,1:612),'linestyle', 'none', 'Marker','.',...
     'color','r');
 hold on
 plot([0 1250],[273.15+35 273.15+35]);
-title('PI control (optimal $K_I$, $K_P = 100$)','Interpreter','LateX','Fontsize',18);
+title('PI control (optimal $K_I$, $K_P = 100 \, VK^{-1}$)','Interpreter','LateX','Fontsize',18);
 xlabel('$t\quad [s]$','interpreter','latex','fontsize',15);
 ylabel('$T\quad [K]$','interpreter','latex','fontsize',15);
 set(gca,'TickLabelInterpreter','latex');
